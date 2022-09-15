@@ -3,19 +3,18 @@ namespace TicTacToe.Core;
 public sealed class Game
 {
     private readonly Queue<Player> _players;
-    private Player _currentPlayer;
 
     public Game(IEnumerable<Player> players)
     {
         _players = new Queue<Player>(players);
-        _currentPlayer = new Player(_players.Peek().Name);
+        CurrentPlayer = new Player(_players.Peek().Name);
     }
 
     public void MadeMove(
         int x,
         int y)
     {
-        _currentPlayer = _players.Dequeue();
+        CurrentPlayer = _players.Dequeue();
 
         foreach (var player in _players)
         {
@@ -23,13 +22,15 @@ public sealed class Game
                 throw new ArgumentOutOfRangeException("Точка уже занята другим игроком");
         }
         
-        _currentPlayer.AddPoint(x, y);
-        _players.Enqueue(_currentPlayer);
+        CurrentPlayer.AddPoint(x, y);
+        _players.Enqueue(CurrentPlayer);
     }
+
+    public Player CurrentPlayer { get; private set; }
 
     public Result Check()
     {
-        var points = _currentPlayer.Points;
+        var points = CurrentPlayer.Points;
 
         foreach (var point in points)
         {
@@ -40,11 +41,11 @@ public sealed class Game
                 var pointCount = points.Count(p => line.Check(p));
 
                 if (pointCount >= 3)
-                    return new Result(false, _currentPlayer.Name);
+                    return new Result(false, CurrentPlayer.Name);
             }
         }
 
-        return new Result(true, _currentPlayer.Name);
+        return new Result(true, CurrentPlayer.Name);
     }
 
     private static IEnumerable<Line> GenerateLines(Point point)
@@ -54,7 +55,7 @@ public sealed class Game
         for (var i = -1; i < 2; i++)
         for (var j = -1; j < 2; j++)
         {
-            if (i != 0 || j != 0)
+            if (i != 0 || j != 0) 
                 lines.Add(new Line(point, new Point(point.X + i, point.Y + j)));
         }
 
