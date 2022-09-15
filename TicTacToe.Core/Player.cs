@@ -2,14 +2,20 @@ namespace TicTacToe.Core;
 
 public sealed class Player
 {
-    internal ICollection<Point> Cells { get; } = new List<Point>();
+    internal string Name { get; }
 
-    public void AddCell(
+    public Player(string name)
+    {
+        Name = name;
+    }
+    internal ICollection<Point> Points { get; } = new List<Point>();
+
+    public void AddPoint(
         int x,
         int y)
     {
         var cell = new Point(x, y);
         
-        Cells.Add(cell);
+        Points.Add(cell);
     }
 }
