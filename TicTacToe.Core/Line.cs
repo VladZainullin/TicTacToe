@@ -22,7 +22,7 @@ public sealed class Line
     {
         try
         {
-            return (point.X - _start.X) / (_end.X - _start.X) == (point.Y - _start.Y) / (_end.Y - _start.Y);
+            return point / _start == _end / _start;
         }
         catch (DivideByZeroException)
         {

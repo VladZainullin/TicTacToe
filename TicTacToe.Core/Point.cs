@@ -12,4 +12,11 @@ public struct Point
 
     internal int X { get; }
     internal int Y { get; }
+    
+    public static int operator /(
+        Point first,
+        Point second)
+    {
+        return (first.X - second.X) / (first.Y - second.Y);
+    }
 }
