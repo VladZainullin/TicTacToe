@@ -1,64 +1,65 @@
+using TicTacToe.Core.Enums;
+
 namespace TicTacToe.Core;
 
 public sealed class Game
 {
+    private readonly ICollection<Point> _points;
     private readonly Queue<Player> _players;
 
     public Game(IEnumerable<Player> players)
     {
         _players = new Queue<Player>(players);
-        CurrentPlayer = new Player(_players.Peek().Name);
+        _points = new List<Point>(10);
+        CurrentPlayer = _players.Peek();
+        Status = GameStatus.Create;
     }
+    
+    public Player CurrentPlayer { get; private set; }
+    public GameStatus Status { get; private set; }
 
     public void MadeMove(
         int x,
         int y)
     {
         CurrentPlayer = _players.Dequeue();
-
-        foreach (var player in _players)
-        {
-            if (player.Points.Contains(new Point(x, y)))
-                throw new ArgumentOutOfRangeException("Точка уже занята другим игроком");
-        }
         
+        if (Status != GameStatus.Start) 
+            Status = GameStatus.Start;
+        
+        var occupied = IsOccupied(x, y);
+        if (occupied)
+            throw new ArgumentOutOfRangeException("Точка уже занята другим игроком");
+
         CurrentPlayer.AddPoint(x, y);
-        _players.Enqueue(CurrentPlayer);
-    }
 
-    public Player CurrentPlayer { get; private set; }
-
-    public Result Check()
-    {
         var points = CurrentPlayer.Points;
 
         foreach (var point in points)
         {
-            var lines = GenerateLines(point);
+            var lines = point.Lines;
 
             foreach (var line in lines)
             {
-                var pointCount = points.Count(p => line.Check(p));
+                var pointCount = points
+                    .Count(p =>
+                        line.Contains(p));
 
                 if (pointCount >= 3)
-                    return new Result(false, CurrentPlayer.Name);
+                    Status = GameStatus.Stop;
             }
         }
 
-        return new Result(true, CurrentPlayer.Name);
+        _players.Enqueue(CurrentPlayer);
+        CurrentPlayer = _players.Peek();
     }
-
-    private static IEnumerable<Line> GenerateLines(Point point)
+    private bool IsOccupied(
+        int x,
+        int y)
     {
-        var lines = new List<Line>();
-
-        for (var i = -1; i < 2; i++)
-        for (var j = -1; j < 2; j++)
-        {
-            if (i != 0 || j != 0) 
-                lines.Add(new Line(point, new Point(point.X + i, point.Y + j)));
-        }
-
-        return lines;
+        return _players
+            .Any(player => player
+                .Points
+                .Contains(new Point(x, y)));
     }
 }

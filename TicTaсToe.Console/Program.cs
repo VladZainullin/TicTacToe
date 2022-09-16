@@ -1,20 +1,20 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using TicTacToe.Core;
+using TicTacToe.Core.Enums;
 
 var vlad = new Player("Vlad");
 var alex = new Player("Alex");
 
-IEnumerable<Player> players = new[]
+var players = new[]
 {
     vlad,
     alex
 };
 
 var game = new Game(players);
-var endGame = true;
 
-while (endGame)
+while (game.Status != GameStatus.Stop)
 {
     Console.WriteLine($"Ход {game.CurrentPlayer.Name}");
     
@@ -25,12 +25,6 @@ while (endGame)
     var y = int.Parse(Console.ReadLine() ?? throw new ArgumentException("Ошибка ввода Y"));
     
     game.MadeMove(x, y);
-
-    var result = game.Check();
-    endGame = result.EndGame;
-
-    if (!result.EndGame)
-    {
-        Console.WriteLine($"{result.PlayerName} vin");
-    }
 }
+
+Console.WriteLine(game.CurrentPlayer.Name);

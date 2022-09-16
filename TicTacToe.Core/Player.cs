@@ -14,8 +14,8 @@ public sealed class Player
         int x,
         int y)
     {
-        var cell = new Point(x, y);
+        var point = new Point(x, y);
         
-        Points.Add(cell);
+        Points.Add(point);
     }
 }

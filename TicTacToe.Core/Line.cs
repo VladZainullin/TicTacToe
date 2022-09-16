@@ -18,7 +18,7 @@ public sealed class Line
     /// </summary>
     /// <param name="point">Точка</param>
     /// <returns></returns>
-    public bool Check(Point point)
+    public bool Contains(Point point)
     {
         try
         {
