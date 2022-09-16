@@ -36,17 +36,15 @@ public sealed class Game
         var points = CurrentPlayer.Points;
 
         foreach (var point in points)
+        foreach (var line in point.Lines)
         {
-            var lines = point.Lines;
+            var pointCount = points
+                .Count(p => line.Contains(p));
 
-            foreach (var line in lines)
+            if (pointCount >= 3)
             {
-                var pointCount = points
-                    .Count(p =>
-                        line.Contains(p));
-
-                if (pointCount >= 3)
-                    Status = GameStatus.Stop;
+                Status = GameStatus.Stop;
+                return;
             }
         }
 

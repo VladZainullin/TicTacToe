@@ -24,8 +24,8 @@ public class Point
     {
         get
         {
-            for (var i = -1; i < 2; i += 2)
-            for (var j = -1; j < 2; j += 2)
+            for (var i = -1; i < 2; i ++)
+            for (var j = -1; j < 2; j ++)
             {
                 if (i != 0 || j != 0)
                     yield return new Line(this, new Point(X + i, Y + j));
