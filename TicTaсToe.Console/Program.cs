@@ -26,7 +26,8 @@ while (game.Status != GameStatus.Stop)
     Console.Write("Введите Y: ");
     var y = int.Parse(Console.ReadLine() ?? throw new ArgumentException("Ошибка ввода Y"));
 
-    game.MakeMove(x, y);
+    var point = new Point(x, y);
+    game.MakeMove(point);
 }
 
 Console.WriteLine($"{game.CurrentPlayer.Name} побеждает!");
