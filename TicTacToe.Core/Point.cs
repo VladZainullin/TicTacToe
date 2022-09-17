@@ -1,6 +1,6 @@
 namespace TicTacToe.Core;
 
-public class Point
+public sealed class Point
 {
     public Point(
         int x,
@@ -20,16 +20,15 @@ public class Point
         return (first.X - second.X) / (first.Y - second.Y);
     }
 
-    public IEnumerable<Line> Lines
+    public IEnumerable<Vector> GenerateVectors(int length)
     {
-        get
+        for (var i = -length; i < length + 1; i += length)
+        for (var j = -length; j < length + 1; j += length)
         {
-            for (var i = -1; i < 2; i ++)
-            for (var j = -1; j < 2; j ++)
-            {
-                if (i != 0 || j != 0)
-                    yield return new Line(this, new Point(X + i, Y + j));
-            }
+            if (i != 0 || j != 0)
+                yield return new Vector(this, new Point(X + i, Y + j));
         }
     }
+
+    public double Distance(Point point) => Math.Sqrt(Math.Pow(X - point.X, 2) + Math.Pow(Y - point.Y, 2));
 }

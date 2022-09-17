@@ -12,7 +12,7 @@ var players = new[]
     alex
 };
 
-var game = new Game(players);
+var game = new Game(players, 3);
 
 while (game.Status != GameStatus.Stop)
 {
@@ -27,4 +27,4 @@ while (game.Status != GameStatus.Stop)
     game.MadeMove(x, y);
 }
 
-Console.WriteLine(game.CurrentPlayer.Name);
+Console.WriteLine($"{game.CurrentPlayer.Name} побеждает!");

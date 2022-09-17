@@ -4,13 +4,16 @@ namespace TicTacToe.Core;
 
 public sealed class Game
 {
-    private readonly ICollection<Point> _points;
+    private readonly int _vinPointCount;
     private readonly Queue<Player> _players;
 
-    public Game(IEnumerable<Player> players)
+    public Game(
+        IEnumerable<Player> players, 
+        int vinPointCount)
     {
         _players = new Queue<Player>(players);
-        _points = new List<Point>(10);
+        _vinPointCount = vinPointCount;
+        
         CurrentPlayer = _players.Peek();
         Status = GameStatus.Create;
     }
@@ -36,16 +39,15 @@ public sealed class Game
         var points = CurrentPlayer.Points;
 
         foreach (var point in points)
-        foreach (var line in point.Lines)
+        foreach (var vector in point.GenerateVectors(_vinPointCount))
         {
-            var pointCount = points
-                .Count(p => line.Contains(p));
+            var pointCount = points.Count(p => vector.Contains(p));
 
-            if (pointCount >= 3)
-            {
-                Status = GameStatus.Stop;
-                return;
-            }
+            if (pointCount < _vinPointCount - 1)
+                continue;
+            
+            Status = GameStatus.Stop;
+            return;
         }
 
         _players.Enqueue(CurrentPlayer);

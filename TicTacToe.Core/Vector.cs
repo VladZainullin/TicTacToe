@@ -1,11 +1,11 @@
 namespace TicTacToe.Core;
 
-public sealed class Line
+public sealed class Vector
 {
     private readonly Point _start;
     private readonly Point _end;
 
-    public Line(
+    public Vector(
         Point start,
         Point end)
     {
@@ -13,16 +13,16 @@ public sealed class Line
         _end = end;
     }
 
-    /// <summary>
-    /// Метод проверяет принадлежит ли точка прямой
-    /// </summary>
-    /// <param name="point">Точка</param>
-    /// <returns></returns>
+    public double Length => _start.Distance(_end);
+    
     public bool Contains(Point point)
     {
         try
         {
-            return point / _start == _end / _start;
+            var contains =
+                point / _start == _end / _start;
+
+            return contains;
         }
         catch (DivideByZeroException)
         {
