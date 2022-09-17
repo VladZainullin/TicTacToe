@@ -13,8 +13,6 @@ public sealed class Vector
         _end = end ?? throw new ArgumentNullException(nameof(end));
     }
 
-    public double Length => _start.Distance(_end);
-
     public bool Contains(Point point)
     {
         if (point == null) throw new ArgumentNullException(nameof(point));

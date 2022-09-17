@@ -50,22 +50,4 @@ public sealed class VectorTests
             true
         };
     }
-
-    [Theory]
-    [MemberData(nameof(VectorLengthData))]
-    private void VectorLengthTest(
-        Vector vector,
-        double length)
-    {
-        Assert.Equal(length, vector.Length);
-    }
-
-    private static IEnumerable<object[]> VectorLengthData()
-    {
-        yield return new object[]
-        {
-            new Vector(new Point(2, 1), new Point(5, 5)),
-            5
-        };
-    }
 }

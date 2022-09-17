@@ -28,35 +28,18 @@ public sealed class Player
     public bool Vin(int pointVinCount)
     {
         if (pointVinCount < 3) throw new ArgumentOutOfRangeException(nameof(pointVinCount));
-        
-        foreach (var point in _points)
-        {
-            var vectors = point.GenerateVectors(pointVinCount - 1);
-        
-            foreach (var vector in vectors)
-            {
-                var pointCount = _points.Count(p =>
-                    vector.Contains(p)
-                    &&
-                    !p.Equals(point));
-        
-                if (pointCount < pointVinCount - 1)
-                    continue;
-                
-                return true;
-            }
-        }
-        
-        return _points
-            .AsParallel()
+
+        var vin = _points
             .Select(point => point
                 .GenerateVectors(pointVinCount - 1)
-                .Select(v => _points
+                .Select(vector => _points
                     .Count(p => 
-                        v.Contains(p)
+                        vector.Contains(p) 
                         &&
                         !p.Equals(point)))
                 .Any(count => count >= pointVinCount - 1))
-            .All(b => b);
+            .Any(b => b);
+
+        return vin;
     }
 }

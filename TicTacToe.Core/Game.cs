@@ -21,7 +21,7 @@ public sealed class Game
     public Player CurrentPlayer { get; private set; }
     public GameStatus Status { get; private set; }
 
-    public void Next(
+    public void MakeMove(
         int x,
         int y)
     {

@@ -10,7 +10,7 @@ var dasha = new Player("Dasha");
 var players = new[]
 {
     vlad,
-    // alex,
+    alex,
     // dasha,
 };
 
@@ -26,7 +26,7 @@ while (game.Status != GameStatus.Stop)
     Console.Write("Введите Y: ");
     var y = int.Parse(Console.ReadLine() ?? throw new ArgumentException("Ошибка ввода Y"));
 
-    game.Next(x, y);
+    game.MakeMove(x, y);
 }
 
 Console.WriteLine($"{game.CurrentPlayer.Name} побеждает!");
