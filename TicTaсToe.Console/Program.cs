@@ -2,6 +2,9 @@
 
 using TicTacToe.Core;
 using TicTacToe.Core.Enums;
+using TicTacToe.Core.IGame;
+using TicTacToe.Core.Players;
+using TicTacToe.Core.Points;
 
 var vlad = new Player("Vlad");
 var alex = new Player("Alex");
@@ -14,7 +17,7 @@ var players = new[]
     // dasha,
 };
 
-var game = new Game(players, 3);
+IGame game = new Game(players, 3);
 
 while (game.Status != GameStatus.Stop)
 {
@@ -26,7 +29,7 @@ while (game.Status != GameStatus.Stop)
     Console.Write("Введите Y: ");
     var y = int.Parse(Console.ReadLine() ?? throw new ArgumentException("Ошибка ввода Y"));
 
-    var point = new Point(x, y);
+    IPoint point = new TwoDimensionalPoint(x, y);
     game.MakeMove(point);
 }
 

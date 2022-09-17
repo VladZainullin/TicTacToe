@@ -1,38 +1,40 @@
 using TicTacToe.Core.Enums;
+using TicTacToe.Core.Players;
+using TicTacToe.Core.Points;
 
-namespace TicTacToe.Core;
+namespace TicTacToe.Core.IGame;
 
-public sealed class Game
+public sealed class Game : IGame
 {
-    private readonly Queue<Player> _players;
+    private readonly Queue<IPlayer> _players;
     private readonly int _vinPointCount;
 
     public Game(
-        IEnumerable<Player> players,
+        IEnumerable<IPlayer> players,
         int vinPointCount)
     {
-        _players = new Queue<Player>(players);
+        _players = new Queue<IPlayer>(players);
         _vinPointCount = vinPointCount;
 
         CurrentPlayer = _players.Peek();
         Status = GameStatus.Create;
     }
 
-    public Player CurrentPlayer { get; private set; }
+    public IPlayer CurrentPlayer { get; private set; }
     public GameStatus Status { get; private set; }
 
-    public void MakeMove(Point point)
+    public void MakeMove(IPoint twoDimensionalVectorPoint)
     {
         CurrentPlayer = _players.Dequeue();
 
         if (Status != GameStatus.Start)
             Status = GameStatus.Start;
 
-        var occupied = IsOccupied(point);
+        var occupied = IsOccupied(twoDimensionalVectorPoint);
         if (occupied)
             throw new ArgumentOutOfRangeException("Точка уже занята другим игроком");
 
-        CurrentPlayer.AddPoint(point);
+        CurrentPlayer.AddPoint(twoDimensionalVectorPoint);
 
         var vin = CurrentPlayer.Vin(_vinPointCount);
         if (vin)
@@ -45,7 +47,7 @@ public sealed class Game
         CurrentPlayer = _players.Peek();
     }
 
-    private bool IsOccupied(Point point) => _players
+    private bool IsOccupied(IPoint twoDimensionalVectorPoint) => _players
             .Any(player => player
-                .ContainsPoint(point));
+                .ContainsPoint(twoDimensionalVectorPoint));
 }
