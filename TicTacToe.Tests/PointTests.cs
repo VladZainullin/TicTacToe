@@ -1,5 +1,5 @@
-using Xunit;
 using TicTacToe.Core;
+using Xunit;
 
 namespace TicTacToe.Tests;
 
@@ -14,6 +14,7 @@ public sealed class PointTests
     {
         Assert.Equal(result, first / second);
     }
+
     private static IEnumerable<object[]> DividePointData()
     {
         yield return new object[] {new Point(3, 5), new Point(2, 4), 1};

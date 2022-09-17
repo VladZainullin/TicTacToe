@@ -2,12 +2,12 @@ namespace TicTacToe.Core;
 
 public sealed class Player
 {
-    public string Name { get; }
-
     public Player(string name)
     {
         Name = name;
     }
+
+    public string Name { get; }
     public ICollection<Point> Points { get; } = new List<Point>();
 
     public void AddPoint(
@@ -15,7 +15,7 @@ public sealed class Player
         int y)
     {
         var point = new Point(x, y);
-        
+
         Points.Add(point);
     }
 }

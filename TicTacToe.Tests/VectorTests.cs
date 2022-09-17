@@ -13,16 +13,16 @@ public sealed class VectorTests
         bool result)
     {
         var actual = vector.Contains(point);
-        
+
         Assert.Equal(result, actual);
     }
-    
+
     private static IEnumerable<object[]> VectorContainsPointData()
     {
         yield return new object[]
         {
-            new Vector(new Point(1, 1), new Point(3, 3)), 
-            new Point(2, 2), 
+            new Vector(new Point(1, 1), new Point(3, 3)),
+            new Point(2, 2),
             true
         };
         yield return new object[]
@@ -39,8 +39,8 @@ public sealed class VectorTests
         };
         yield return new object[]
         {
-            new Vector(new Point(-2, 4), new Point(3, 1)), 
-            new Point(3, 1), 
+            new Vector(new Point(-2, 4), new Point(3, 1)),
+            new Point(3, 1),
             true
         };
     }
@@ -48,12 +48,12 @@ public sealed class VectorTests
     [Theory]
     [MemberData(nameof(VectorLengthData))]
     private void VectorLengthTest(
-        Vector vector, 
+        Vector vector,
         double length)
     {
         Assert.Equal(length, vector.Length);
     }
-    
+
     private static IEnumerable<object[]> VectorLengthData()
     {
         yield return new object[]

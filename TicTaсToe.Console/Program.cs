@@ -17,13 +17,13 @@ var game = new Game(players, 3);
 while (game.Status != GameStatus.Stop)
 {
     Console.WriteLine($"Ход {game.CurrentPlayer.Name}");
-    
+
     Console.Write("Введите X: ");
     var x = int.Parse(Console.ReadLine() ?? throw new ArgumentException("Ошибка ввода X"));
-    
+
     Console.Write("Введите Y: ");
     var y = int.Parse(Console.ReadLine() ?? throw new ArgumentException("Ошибка ввода Y"));
-    
+
     game.MadeMove(x, y);
 }
 

@@ -2,8 +2,8 @@ namespace TicTacToe.Core;
 
 public sealed class Vector
 {
-    private readonly Point _start;
     private readonly Point _end;
+    private readonly Point _start;
 
     public Vector(
         Point start,
@@ -14,7 +14,7 @@ public sealed class Vector
     }
 
     public double Length => _start.Distance(_end);
-    
+
     public bool Contains(Point point)
     {
         try

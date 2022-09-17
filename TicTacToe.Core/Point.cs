@@ -24,11 +24,12 @@ public sealed class Point
     {
         for (var i = -length; i < length + 1; i += length)
         for (var j = -length; j < length + 1; j += length)
-        {
             if (i != 0 || j != 0)
                 yield return new Vector(this, new Point(X + i, Y + j));
-        }
     }
 
-    public double Distance(Point point) => Math.Sqrt(Math.Pow(X - point.X, 2) + Math.Pow(Y - point.Y, 2));
+    public double Distance(Point point)
+    {
+        return Math.Sqrt(Math.Pow(X - point.X, 2) + Math.Pow(Y - point.Y, 2));
+    }
 }
