@@ -21,8 +21,12 @@ public sealed class Game
     public Player CurrentPlayer { get; private set; }
     public GameStatus Status { get; private set; }
 
-    public void MakeMove(Point point)
+    public void MakeMove(
+        int x,
+        int y)
     {
+        var point = new Point(x, y);
+        
         CurrentPlayer = _players.Dequeue();
 
         if (Status != GameStatus.Start)
