@@ -5,11 +5,13 @@ using TicTacToe.Core.Enums;
 
 var vlad = new Player("Vlad");
 var alex = new Player("Alex");
+var dasha = new Player("Dasha");
 
 var players = new[]
 {
     vlad,
-    alex
+    alex,
+    dasha,
 };
 
 var game = new Game(players, 3);

@@ -43,6 +43,12 @@ public sealed class VectorTests
             new Point(3, 1),
             true
         };
+        yield return new object[]
+        {
+            new Vector(new Point(-2, 4), new Point(3, 1)),
+            new Point(-2, 4),
+            true
+        };
     }
 
     [Theory]

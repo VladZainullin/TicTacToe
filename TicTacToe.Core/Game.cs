@@ -25,27 +25,22 @@ public sealed class Game
         int x,
         int y)
     {
+        var point = new Point(x, y);
+        
         CurrentPlayer = _players.Dequeue();
 
         if (Status != GameStatus.Start)
             Status = GameStatus.Start;
 
-        var occupied = IsOccupied(x, y);
+        var occupied = IsOccupied(point);
         if (occupied)
             throw new ArgumentOutOfRangeException("Точка уже занята другим игроком");
 
-        CurrentPlayer.AddPoint(x, y);
+        CurrentPlayer.AddPoint(point);
 
-        var points = CurrentPlayer.Points;
-
-        foreach (var point in points)
-        foreach (var vector in point.GenerateVectors(_vinPointCount))
+        var vin = CurrentPlayer.Vin(_vinPointCount - 1);
+        if (vin)
         {
-            var pointCount = points.Count(p => vector.Contains(p));
-
-            if (pointCount < _vinPointCount - 1)
-                continue;
-
             Status = GameStatus.Stop;
             return;
         }
@@ -54,13 +49,7 @@ public sealed class Game
         CurrentPlayer = _players.Peek();
     }
 
-    private bool IsOccupied(
-        int x,
-        int y)
-    {
-        return _players
+    private bool IsOccupied(Point point) => _players
             .Any(player => player
-                .Points
-                .Contains(new Point(x, y)));
-    }
+                .ContainsPoint(point));
 }
