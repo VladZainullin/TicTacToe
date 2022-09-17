@@ -38,7 +38,7 @@ public sealed class Game
 
         CurrentPlayer.AddPoint(point);
 
-        var vin = CurrentPlayer.Vin(_vinPointCount - 1);
+        var vin = CurrentPlayer.Vin(_vinPointCount);
         if (vin)
         {
             Status = GameStatus.Stop;

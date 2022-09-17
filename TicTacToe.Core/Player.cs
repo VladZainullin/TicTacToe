@@ -1,3 +1,5 @@
+using TicTacToe.Core.Enums;
+
 namespace TicTacToe.Core;
 
 public sealed class Player
@@ -25,17 +27,36 @@ public sealed class Player
 
     public bool Vin(int pointVinCount)
     {
-        if (pointVinCount <= 3) throw new ArgumentOutOfRangeException(nameof(pointVinCount));
+        if (pointVinCount < 3) throw new ArgumentOutOfRangeException(nameof(pointVinCount));
+        
+        foreach (var point in _points)
+        {
+            var vectors = point.GenerateVectors(pointVinCount - 1);
+        
+            foreach (var vector in vectors)
+            {
+                var pointCount = _points.Count(p =>
+                    vector.Contains(p)
+                    &&
+                    !p.Equals(point));
+        
+                if (pointCount < pointVinCount - 1)
+                    continue;
+                
+                return true;
+            }
+        }
         
         return _points
+            .AsParallel()
             .Select(point => point
-                .GenerateVectors(pointVinCount + 1)
+                .GenerateVectors(pointVinCount - 1)
                 .Select(v => _points
-                    .Count(p =>
+                    .Count(p => 
                         v.Contains(p)
                         &&
                         !p.Equals(point)))
-                .All(count => count < pointVinCount - 1))
-            .All(b => !b);
+                .Any(count => count >= pointVinCount - 1))
+            .All(b => b);
     }
 }

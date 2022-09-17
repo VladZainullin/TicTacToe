@@ -10,8 +10,8 @@ var dasha = new Player("Dasha");
 var players = new[]
 {
     vlad,
-    alex,
-    dasha,
+    // alex,
+    // dasha,
 };
 
 var game = new Game(players, 3);
