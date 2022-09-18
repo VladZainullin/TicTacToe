@@ -1,5 +1,3 @@
-using TicTacToe.Core.Enums;
-
 namespace TicTacToe.Core;
 
 public sealed class Player
@@ -25,7 +23,7 @@ public sealed class Player
         return _points.Contains(point);
     }
 
-    public bool Vin(int pointVinCount)
+    public bool Win(int pointVinCount)
     {
         if (pointVinCount < 3) throw new ArgumentOutOfRangeException(nameof(pointVinCount));
 

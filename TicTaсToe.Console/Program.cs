@@ -18,15 +18,20 @@ var game = new Game(players, 3);
 
 while (game.Status != GameStatus.Stop)
 {
-    Console.WriteLine($"Ход {game.CurrentPlayer.Name}");
+    Console.WriteLine($"Move {game.CurrentPlayer.Name}. Please, enter the coordinate");
 
-    Console.Write("Введите X: ");
+    Console.Write("X: ");
     var x = int.Parse(Console.ReadLine() ?? throw new ArgumentException("Ошибка ввода X"));
 
-    Console.Write("Введите Y: ");
+    Console.Write("Y: ");
     var y = int.Parse(Console.ReadLine() ?? throw new ArgumentException("Ошибка ввода Y"));
+    
+    Console.Write("Z: ");
+    var z = int.Parse(Console.ReadLine() ?? throw new ArgumentException("Ошибка ввода Y"));
 
-    game.MakeMove(x, y);
+    var point = new Point(x, y, z);
+    
+    game.MakeMove(point);
 }
 
-Console.WriteLine($"{game.CurrentPlayer.Name} побеждает!");
+Console.WriteLine($"{game.CurrentPlayer.Name} win!");

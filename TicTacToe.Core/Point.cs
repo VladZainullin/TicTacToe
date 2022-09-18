@@ -4,23 +4,16 @@ public sealed class Point
 {
     private readonly int _x;
     private readonly int _y;
+    private readonly int _z;
 
     public Point(
         int x,
-        int y)
+        int y,
+        int z)
     {
         _x = x;
         _y = y;
-    }
-
-    public static int operator /(
-        Point first,
-        Point second)
-    {
-        if (first == null) throw new ArgumentNullException(nameof(first));
-        if (second == null) throw new ArgumentNullException(nameof(second));
-        
-        return (first._x - second._x) / (first._y - second._y);
+        _z = z;
     }
 
     public bool Equals(Point point)
@@ -29,7 +22,9 @@ public sealed class Point
         
         return _x == point._x
                &&
-               _y == point._y;
+               _y == point._y
+               &&
+               _z == point._z;
     }
 
     public IEnumerable<Vector> GenerateVectors(int length)
@@ -38,14 +33,15 @@ public sealed class Point
         
         for (var i = -length; i < length + 1; i += length)
         for (var j = -length; j < length + 1; j += length)
-            if (i != 0 || j != 0)
-                yield return new Vector(this, new Point(_x + i, _y + j));
+        for (var z = -length; z < length + 1; z += length)
+            if (i != 0 || j != 0 || z != 0)
+                yield return new Vector(this, new Point(_x + i, _y + j, _z + z));
     }
 
     public double Distance(Point point)
     {
         if (point == null) throw new ArgumentNullException(nameof(point));
         
-        return Math.Sqrt(Math.Pow(_x - point._x, 2) + Math.Pow(_y - point._y, 2));
+        return Math.Sqrt(Math.Pow(_x - point._x, 2) + Math.Pow(_y - point._y, 2) + Math.Pow(_z - point._z, 2));
     }
 }
