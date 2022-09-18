@@ -11,7 +11,7 @@ var players = new[]
 {
     vlad,
     alex,
-    dasha
+    // dasha,
 };
 
 var game = new Game(players, 3);

@@ -16,7 +16,17 @@ public sealed class Vector
     public bool Contains(Point point)
     {
         if (point == null) throw new ArgumentNullException(nameof(point));
-
-        return _start.Distance(point) + point.Distance(_end) - _start.Distance(_end) == 0;
+        try
+        {
+            return point / _start == _end / _start
+                   &&
+                   _start.Distance(point) + point.Distance(_end) - _start.Distance(_end) == 0;;
+        }
+        catch (DivideByZeroException)
+        {
+            return point.Equals(_start)
+                   ||
+                   point.Equals(_end);
+        }
     }
 }

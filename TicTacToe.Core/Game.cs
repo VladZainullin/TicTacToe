@@ -26,7 +26,7 @@ public sealed class Game
         int y)
     {
         var point = new Point(x, y);
-
+        
         CurrentPlayer = _players.Dequeue();
 
         if (Status != GameStatus.Start)
@@ -35,7 +35,7 @@ public sealed class Game
         var occupied = IsOccupied(point);
         if (occupied)
             throw new ArgumentOutOfRangeException("The point is already occupied by another player!");
-
+        
         CurrentPlayer.AddPoint(point);
 
         var vin = CurrentPlayer.Vin(_vinPointCount);
@@ -49,10 +49,7 @@ public sealed class Game
         CurrentPlayer = _players.Peek();
     }
 
-    private bool IsOccupied(Point point)
-    {
-        return _players
+    private bool IsOccupied(Point point) => _players
             .Any(player => player
                 .ContainsPoint(point));
-    }
 }
