@@ -1,31 +1,32 @@
 using TicTacToe.Core.Enums;
-using TicTacToe.Core.Players;
-using TicTacToe.Core.Points;
 
-namespace TicTacToe.Core.Games;
+namespace TicTacToe.Core;
 
-public sealed class Game : IGame
+public sealed class Game
 {
-    private readonly Queue<IPlayer> _players;
+    private readonly Queue<Player> _players;
     private readonly int _vinPointCount;
 
     public Game(
-        IEnumerable<IPlayer> players,
+        IEnumerable<Player> players,
         int vinPointCount)
     {
-        _players = new Queue<IPlayer>(players);
+        _players = new Queue<Player>(players);
         _vinPointCount = vinPointCount;
 
         CurrentPlayer = _players.Peek();
         Status = GameStatus.Create;
     }
 
-    public IPlayer CurrentPlayer { get; private set; }
+    public Player CurrentPlayer { get; private set; }
     public GameStatus Status { get; private set; }
 
     public void MakeMove(
-        IPoint point)
+        int x,
+        int y)
     {
+        var point = new Point(x, y);
+
         CurrentPlayer = _players.Dequeue();
 
         if (Status != GameStatus.Start)
@@ -48,7 +49,7 @@ public sealed class Game : IGame
         CurrentPlayer = _players.Peek();
     }
 
-    private bool IsOccupied(IPoint point)
+    private bool IsOccupied(Point point)
     {
         return _players
             .Any(player => player

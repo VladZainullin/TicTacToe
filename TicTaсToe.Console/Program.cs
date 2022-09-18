@@ -1,21 +1,20 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using TicTacToe.Core;
 using TicTacToe.Core.Enums;
-using TicTacToe.Core.Games;
-using TicTacToe.Core.Players;
-using TicTacToe.Core.Points;
 
 var vlad = new Player("Vlad");
 var alex = new Player("Alex");
 var dasha = new Player("Dasha");
 
-IPlayer[] players = {
+var players = new[]
+{
     vlad,
     alex,
-    // dasha
+    dasha
 };
 
-IGame game = new Game(players, 3);
+var game = new Game(players, 3);
 
 while (game.Status != GameStatus.Stop)
 {
@@ -27,9 +26,7 @@ while (game.Status != GameStatus.Stop)
     Console.Write("Введите Y: ");
     var y = int.Parse(Console.ReadLine() ?? throw new ArgumentException("Ошибка ввода Y"));
 
-    IPoint point = new TwoDimensionalPoint(x, y);
-    
-    game.MakeMove(point);
+    game.MakeMove(x, y);
 }
 
 Console.WriteLine($"{game.CurrentPlayer.Name} побеждает!");

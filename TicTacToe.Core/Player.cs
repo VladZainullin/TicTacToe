@@ -1,26 +1,24 @@
-using TicTacToe.Core.Points;
+namespace TicTacToe.Core;
 
-namespace TicTacToe.Core.Players;
-
-public sealed class Player : IPlayer
+public sealed class Player
 {
-    private readonly ICollection<IPoint> _points;
+    private readonly ICollection<Point> _points;
 
     public Player(string name)
     {
         Name = name ?? throw new ArgumentNullException(nameof(name));
-        _points = new List<IPoint>(10);
+        _points = new List<Point>(10);
     }
 
     public string Name { get; }
 
-    public void AddPoint(IPoint point)
+    public void AddPoint(Point point)
     {
         if (point == null) throw new ArgumentNullException(nameof(point));
         _points.Add(point);
     }
 
-    public bool ContainsPoint(IPoint point)
+    public bool ContainsPoint(Point point)
     {
         if (point == null) throw new ArgumentNullException(nameof(point));
         return _points.Contains(point);
