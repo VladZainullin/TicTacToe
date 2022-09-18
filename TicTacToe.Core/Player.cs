@@ -1,10 +1,9 @@
-using TicTacToe.Core.Enums;
-
 namespace TicTacToe.Core;
 
 public sealed class Player
 {
     private readonly ICollection<Point> _points;
+
     public Player(string name)
     {
         Name = name ?? throw new ArgumentNullException(nameof(name));
@@ -33,8 +32,8 @@ public sealed class Player
             .Select(point => point
                 .GenerateVectors(pointVinCount - 1)
                 .Select(vector => _points
-                    .Count(p => 
-                        vector.Contains(p) 
+                    .Count(p =>
+                        vector.Contains(p)
                         &&
                         !p.Equals(point)))
                 .Any(count => count >= pointVinCount - 1))
