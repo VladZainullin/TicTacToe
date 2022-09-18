@@ -34,8 +34,8 @@ public sealed class Game
 
         var occupied = IsOccupied(point);
         if (occupied)
-            throw new ArgumentOutOfRangeException("Точка уже занята другим игроком");
-
+            throw new ArgumentOutOfRangeException("The point is already occupied by another player!");
+        
         CurrentPlayer.AddPoint(point);
 
         var vin = CurrentPlayer.Vin(_vinPointCount);
