@@ -1,19 +1,21 @@
-namespace TicTacToe.Core;
+using TicTacToe.Core.Points;
 
-public sealed class Vector
+namespace TicTacToe.Core.Vectors;
+
+public sealed class TwoDimensionalVector : IVector
 {
-    private readonly Point _end;
-    private readonly Point _start;
+    private readonly IPoint _end;
+    private readonly IPoint _start;
 
-    public Vector(
-        Point start,
-        Point end)
+    public TwoDimensionalVector(
+        IPoint start,
+        IPoint end)
     {
         _start = start ?? throw new ArgumentNullException(nameof(start));
         _end = end ?? throw new ArgumentNullException(nameof(end));
     }
 
-    public bool Contains(Point point)
+    public bool Contains(IPoint point)
     {
         if (point == null) throw new ArgumentNullException(nameof(point));
 
