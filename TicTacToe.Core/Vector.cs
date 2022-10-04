@@ -17,6 +17,5 @@ public sealed class Vector
     {
         if (point == null) throw new ArgumentNullException(nameof(point));
         return _start.Distance(point) + point.Distance(_end) - _start.Distance(_end) == 0;
-        
     }
 }

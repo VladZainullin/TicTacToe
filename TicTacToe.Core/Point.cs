@@ -19,7 +19,10 @@ public sealed class Point
     public bool Equals(Point point)
     {
         if (point == null) throw new ArgumentNullException(nameof(point));
-        
+
+        if (this == point)
+            return true;
+
         return _x == point._x
                &&
                _y == point._y
@@ -30,7 +33,7 @@ public sealed class Point
     public IEnumerable<Vector> GenerateVectors(int length)
     {
         if (length <= 0) throw new ArgumentOutOfRangeException(nameof(length));
-        
+
         for (var i = -length; i < length + 1; i += length)
         for (var j = -length; j < length + 1; j += length)
         for (var z = -length; z < length + 1; z += length)
@@ -41,7 +44,7 @@ public sealed class Point
     public double Distance(Point point)
     {
         if (point == null) throw new ArgumentNullException(nameof(point));
-        
+
         return Math.Sqrt(Math.Pow(_x - point._x, 2) + Math.Pow(_y - point._y, 2) + Math.Pow(_z - point._z, 2));
     }
 }

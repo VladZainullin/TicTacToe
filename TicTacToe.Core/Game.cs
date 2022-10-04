@@ -48,8 +48,8 @@ public sealed class Game
     private bool IsOccupied(Point point)
     {
         if (point == null) throw new ArgumentNullException(nameof(point));
-        
-        return _players.Any(player => 
+
+        return _players.Any(player =>
             player.ContainsPoint(point));
     }
 }
