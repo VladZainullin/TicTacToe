@@ -24,7 +24,7 @@ public sealed class Player
         return _points.Contains(point);
     }
 
-    public bool Win(int pointVinCount)
+    public bool Vin(int pointVinCount)
     {
         if (pointVinCount < 3) throw new ArgumentOutOfRangeException(nameof(pointVinCount));
 
